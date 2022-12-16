@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\"https://github.com/prince0123456/E-com-Amozon/tree/master/backend\""
+  },
+  "author": "\"@prince Gupta\"",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
