@@ -2,7 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 // import data from '../data'
 import axios from 'axios'
-
+const reducer=(state,action)=>{
+  switch(action.type){
+    case 'FETCH_REQUEST':
+      return{...state,loading:true};
+    case 'FETCH_SUCCESS':
+      return{...state,products:action.payload,loading:false};
+    case 'FETCH_FAIL':
+      return {...state,loading:false,error:action.payload};
+    default:
+      return state;
+  }
+}
 function HomeScreen() {
   const [products,setProuducts]=useState([]);
   useEffect(()=>{
