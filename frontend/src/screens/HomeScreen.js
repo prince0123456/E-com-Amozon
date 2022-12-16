@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { Link } from 'react-router-dom'
+import logger from 'use-reducer-logger'
 // import data from '../data'
 import axios from 'axios'
 const reducer=(state,action)=>{
@@ -15,11 +16,22 @@ const reducer=(state,action)=>{
   }
 }
 function HomeScreen() {
-  const [products,setProuducts]=useState([]);
+  const [{loading,error,products},dispatch]=useReducer(logger(reducer),{
+    products:[],
+    loading:true,
+    error:'',
+  })
   useEffect(()=>{
     const fetchData= async ()=>{
-      const result= await axios.get('/api/products');
-      setProuducts(result.data);
+      dispatch({type:'FETCH_REQUEST'})
+      try {
+        const result= await axios.get('/api/products');
+        dispatch({type:'FETCH_SUCCESS',payload:result.data});
+        
+      } catch (error) {
+        dispatch({type:'FETCH_FAIL',payload:error.message});
+      }
+      // setProuducts(result.data);
     };
     fetchData();
   },[])
@@ -28,6 +40,7 @@ function HomeScreen() {
           <h1>Features Products</h1>
       <div className='products'>
       {
+        loading?(<div>Loading.....</div>):error?(<div>{error}</div>):(
         products.map((product)=>(
           <div className='product' key={product.slug}>
           <Link to={`/product/${product.slug}`}>
@@ -41,7 +54,7 @@ function HomeScreen() {
             <button>Add to Cart</button>
             </div>
           </div>
-        ))
+        )))
       }
     </div>
     </div>
