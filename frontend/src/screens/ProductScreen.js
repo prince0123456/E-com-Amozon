@@ -4,6 +4,7 @@ import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import {Helmet} from 'react-helmet-async'
 import Rating from '../components/Rating';
+import { getError } from '../utils';
 const reducer=(state,action)=>{
   switch(action.type){
     case 'FETCH_REQUEST':
@@ -34,7 +35,7 @@ function ProductScreen() {
       dispatch({type:'FETCH_SUCCESS',payload:result.data});
       
     } catch (error) {
-      dispatch({type:'FETCH_FAIL',payload:error.message});
+      dispatch({type:'FETCH_FAIL',payload:getError(error)});
     }
     // setProuducts(result.data);
   };
