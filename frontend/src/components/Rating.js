@@ -39,6 +39,9 @@ function Rating(props) {
             ? 'fas fa-star-half-alt'
             :'far fa-star'}/>
           </span>
+          <span>
+            {numReviews} reviews
+          </span>
     </div>
   )
 }
