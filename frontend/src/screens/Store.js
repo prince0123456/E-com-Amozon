@@ -11,14 +11,16 @@ function reducer(state, action) {
     // eslint-disable-next-line default-case
     switch (action.type){
         case'CART_ADD_ITEM':
-        const newItem=action.payload;
-        const existItem=state.cart.cartItems.find(
-            (item)=> item._id===newItem._id
+        const newItem = action.payload;
+        const existItem = state.cart.cartItems.find(
+          (item) => item._id === newItem._id
         );
-        const cartItems=existItem ?
-        state.cart.cartItems.map((item)=>item._id===existItem._id?newItem:item)
-        :[...state.cart.cartItems,newItem];
-        return{...state,cart:{...state.cart,cartItems}};
+        const cartItems = existItem
+          ? state.cart.cartItems.map((item) =>
+              item._id === existItem._id ? newItem : item
+            )
+          : [...state.cart.cartItems, newItem];
+        return { ...state, cart: { ...state.cart, cartItems } };
       default:
         return state;
     }
