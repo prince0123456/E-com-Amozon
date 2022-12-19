@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {Helmet} from 'react-helmet-async'
 import Rating from '../components/Rating';
 import { getError } from '../utils';
 import { Store } from './Store';
+
+
 const reducer=(state,action)=>{
   switch(action.type){
     case 'FETCH_REQUEST':
@@ -19,6 +21,9 @@ const reducer=(state,action)=>{
   }
 }
 function ProductScreen() {
+
+  const navigate=useNavigate();
+
  const params=useParams();
  const{slug}=params;
 
@@ -44,6 +49,7 @@ function ProductScreen() {
 },[slug]);
 //-------------------------------------------------------------
 //get context
+
 const{state, dispatch:ctxDispatch}=useContext(Store);
 const { cart } = state;
   const addToCartHandler = async () => {
@@ -58,6 +64,7 @@ const { cart } = state;
         type:'CART_ADD_ITEM',
         payload:{...product,quantity},
       });
+      navigate('/cart')
 };
 
 //---------------------------------------------------
